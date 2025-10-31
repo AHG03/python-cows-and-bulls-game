@@ -3,20 +3,11 @@ import random
 def generate_secret():
     digits = list(range(10))
     random.shuffle(digits)
-    secret = ""
-    for digit in digits[:4]:
-        secret += str(digit)
-    return secret
+    return "".join([str(digit) for digit in digits[:4]])
 
 def calculate_cows_and_bulls(secret, guess):
-    cows = 0
-    bulls = 0
-
-    for i in range(4):
-        if guess[i] == secret[i]:
-            bulls += 1
-        elif guess[i] in secret:
-            cows += 1
+    bulls = sum([1 for i in range(4) if guess[i] == secret[i]])
+    cows = sum([1 for i in range(4) if guess[i] in secret]) - bulls
 
     return cows, bulls
 
